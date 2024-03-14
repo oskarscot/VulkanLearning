@@ -1,23 +1,14 @@
-#include <iostream>
-#include "GLFW/glfw3.h"
-#include "vulkan/vulkan.h"
+#include "api/application.hpp"
 
 int main() {
-    glfwInit();
+    vle::Application app{1280, 960, "Vulkan Learning"};
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Vulkan Learning", nullptr, nullptr);
-
-    uint32_t extensionCount = 0;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-
-    std::cout << extensionCount << " extensions supported" << std::endl;
-
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
+    try {
+        app.run();
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
-    return 0;
+    return EXIT_SUCCESS;
 }
