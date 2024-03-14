@@ -9,6 +9,9 @@ namespace vle {
         Window(int width, int height, std::string title);
         ~Window();
 
+        Window(const Window&) = delete;
+        Window& operator=(const Window&) = delete;
+
         bool shouldClose();
     private:
         const int width;
